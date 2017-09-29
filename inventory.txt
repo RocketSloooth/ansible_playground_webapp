@@ -1,0 +1,20 @@
+# This is a local inventory file for Ansible
+# Created on 27.09.2017
+# Last updated on 27.09.2017
+
+# Server Group Load Balancers
+[LoadBalancers]
+lb01
+
+# Server Group Web Servers
+[WebServers]
+app01
+app02
+
+# Server Group DB Servers
+[DBServers]
+db01
+
+# Server Group Control Servers
+[CtrlServers]
+control ansible_connection=local
