@@ -1,0 +1,40 @@
+---
+- hosts: LoadBalancers
+
+  tasks:
+
+  - name: verify nginx service
+    command: service nginx status
+
+  - name: verify nginx is listening on port 80
+    wait_for:
+      port: 80
+      timeout: 1
+
+- hosts: WebServers
+
+  tasks:
+
+  - name: verify apache2 service
+    command: service apache2 status
+
+  - name: verify apache2 is listening on port 80
+    wait_for:
+      port: 80
+      timeout: 1
+
+- hosts: DBServers
+
+  tasks:
+
+  - name: verify mysql service
+    command: service mysql status
+
+  - name: verify mysql is listening on port 3306
+    wait_for:
+      port: 3306
+      timeout: 1
+
+
+
+
