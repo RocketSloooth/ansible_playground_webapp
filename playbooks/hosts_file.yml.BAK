@@ -1,0 +1,17 @@
+---
+- hosts: all
+
+# Tasks section
+  tasks:
+
+  - name: ensure hosts in hosts_file
+    lineinfile:
+      dest: /etc/hosts
+      line: "{{ item }}"
+    with_items:
+    - "# Ansible hosts"
+    - "134.213.31.79   ansible-ctrl control"
+    - "134.213.166.99  ansible-db db01"
+    - "162.13.141.222  ansible-app01 app01"
+    - "134.213.29.187  ansible-app02 app02"
+    - "162.13.81.64    ansible-lb01 lb01"

@@ -1,0 +1,61 @@
+---
+- hosts: DBServers
+
+# Tasks section
+  tasks:
+
+  - name: install mysql-server
+    apt:
+      name: mysql-server
+      state: present
+      update_cache: yes
+
+  - name: install tools
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    with_items:
+    - python-mysqldb
+
+  - name: ensure mysql running
+    service:
+      name: mysql
+      state: started
+      enabled: yes
+
+  - name: ensure mysql listening on all IPs
+    lineinfile:
+      path: /etc/mysql/mysql.conf.d/mysqld.cnf
+      regexp: ^bind-address
+      line: "bind-address		= 0.0.0.0"
+      state: present
+      backup: yes
+    notify: restart mysql
+
+  - name: create demo database
+    mysql_db:
+      name: demo
+      state: present
+
+  - name: create demo mysql user
+    mysql_user:
+      name: demo
+      password: demo
+      priv: demo.*:ALL
+      host: '%'
+      state: present
+
+# Handlers section
+  handlers:
+
+  - name: restart mysql
+    service:
+      name: mysql
+      state: restarted
+
+
+
+
+
+

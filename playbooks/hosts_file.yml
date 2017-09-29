@@ -1,0 +1,21 @@
+---
+- hosts: "!control"
+
+# Tasks section
+  tasks:
+
+  - name: ensure hosts in hosts_file
+    blockinfile:
+      path: /etc/hosts
+      block: |
+        {{ item.ip }}	{{ item.name }}
+      marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+      insertafter: EOF
+      state: present
+      backup: yes
+    with_items:
+    - { name: control, ip: 134.213.31.79 }
+    - { name: db01, ip: 134.213.166.99 }
+    - { name: app01, ip: 162.13.141.222 }
+    - { name: app02, ip: 134.213.29.187 }
+    - { name: lb01, ip: 162.13.81.64 }
