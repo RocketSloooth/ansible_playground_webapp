@@ -1,0 +1,10 @@
+---
+
+- hosts: jenkins-master
+
+  tasks:
+
+#  - name: install prerequisites
+
+
+#  - name: install tools
