@@ -1,0 +1,7 @@
+# Ansible local inventory file for Jenkins Lab
+# Created on 02.10.2017
+# Last updated on 02.10.2017
+
+# Server Group Jenkins Master
+[jenkins-master]
+jenkins
