@@ -1,7 +1,13 @@
 This is a description of the files in this folder:
 
+- .inventory.txt: local inventory file for jenkins-related hosts
+
 - ansible.cfg: local ansible configuration file, to override some of the
                default configurations.
+
+- files: repository of files that need to be copied to jenkins hosts [NOT COMM]
+  - jdk-8u144-linux-x64.rpm: JDK 8 installer for RedHat-like hosts
+  - jdk-8u144-linux-x64.tar.gz: JDK 8 installer for non-RedHat hosts
 
 - hardening_config.yml: playbook to apply to all hosts some of the security
                         best practices, like
@@ -20,6 +26,10 @@ This is a description of the files in this folder:
 Dependencies:
 
 - .inventory.txt: local inventory file for this set of playbooks
+
+- files: folder containing the files that are needed for software installs, etc
+         I will not commit these files for the time being, to avoid using up
+         too much space on Github
 
 - /etc/hosts: system file, needs to be configured with the IP addresses of the
               hosts from the inventory file
