@@ -10,3 +10,7 @@ Learning the ropes of Ansible with a simple scenario:
   - DB Server (db01)
 
 The scenario is based on the Udemy course "Mastering Ansible" by Chris Lunsford.
+
+As an exercise, I also decided to write Ansible playbooks while configuring a Lab
+environment for a Jenkins course. These are stored under the playbooks/jenkins_lab
+folder.
