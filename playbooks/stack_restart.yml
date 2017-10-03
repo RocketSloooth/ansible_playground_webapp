@@ -1,38 +1,80 @@
 ---
 # Bring stack down
 - hosts: LoadBalancers
+
   tasks:
+
   - name: stop nginx
     service:
       name: nginx
       state: stopped
 
+  - name: check nginx is drained
+    wait_for:
+      port: 80
+      state: drained
+
 - hosts: WebServers
+
   tasks:
+
   - name: stop apache2
     service:
       name: apache2
       state: stopped
 
+  - name: check apache2 is stopped
+    wait_for:
+      port: 80
+      state: stopped
+
 # Restart MySQL
 - hosts: DBServers
+
   tasks:
+
   - name: restart mysql
     service:
       name: mysql
       state: restarted
 
+  - name: check mysql is restarted
+    wait_for:
+      port: 3306
+      state: started
+
 # Bring stack up
 - hosts: WebServers
+
   tasks:
+
   - name: start apache2
     service:
       name: apache2
       state: started
 
+  - name: check apache2 is listening on port 80
+    wait_for:
+      port: 80
+      state: started
+
 - hosts: LoadBalancers
+
   tasks:
+
   - name: start nginx
     service:
       name: nginx
       state: started
+
+  - name: check nginx is listening on port 80
+    wait_for:
+      port: 80
+      state: started
+
+# NOTE: "state=started" is the default, and therefore redundant. the default
+#       timeout is 300 sec.
+
+
+
+

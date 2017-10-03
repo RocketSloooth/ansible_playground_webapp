@@ -1,0 +1,20 @@
+---
+- hosts: all
+
+# Tasks section
+  tasks:
+
+  - name: ensure "cloudusr" exists
+    lineinfile:
+      path: /etc/passwd
+      regexp: 'cloudusr:x:'
+      state: present
+      insertafter: EOF
+      line: 'cloudusr:x:1001:1001::/home/cloudusr:/bin/bash'
+      backup: yes
+
+
+# NOTE: this file is not complete - it only ensure the entry exists in the
+#       passwd file, but directory, files and group are not created (yet)
+# However, if the user did not exist and had no associated SSH authorised key,
+# then Ansible would not be able to login anyway.
