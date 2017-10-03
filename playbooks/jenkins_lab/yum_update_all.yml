@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+
+  tasks:
+
+  - name: upgrade all packages - ignore exclusions
+    yum:
+      name: "*"
+      update_cache: yes
+      state: latest

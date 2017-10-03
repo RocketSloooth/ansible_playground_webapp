@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+
+  tasks:
+
+  - name: upgrade all packages - satisying dependencies
+    apt:
+      update_cache: yes
+      upgrade: dist

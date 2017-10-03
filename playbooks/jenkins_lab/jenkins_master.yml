@@ -1,0 +1,83 @@
+---
+
+- hosts: jenkins-master
+
+## Defining variables, so that the JDK version we are installing can be quickly
+#+ changed.
+  vars:
+    jdk_x64_tar_installer: jdk-8u144-linux-x64.tar.gz
+    jdk_x64_rpm_installer: jdk-8u144-linux-x64.rpm
+
+# Tasks section
+  tasks:
+
+  - name: create directory for software installers
+    file:
+      path: /opt/sw_installers
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+
+# This section is conditional, only executed on Debian-like hosts
+  - name: copy JDK install file - Debian
+    copy:
+      # make sure you are copying over the correct JDK install file
+      src: ./files/{{ jdk_x64_tar_installer }}
+      dest: /opt/sw_installers/{{ jdk_x64_tar_installer }}
+      owner: root
+      group: root
+      mode: 0755
+    when: ansible_os_family == "Debian"
+
+# This section is conditional, only executed on RedHat-like hosts
+  - name: copy JDK install file - RedHat
+    copy:
+      # make sure you are copying over the correct JDK install file
+      src: ./files/{{ jdk_x64_rpm_installer }}
+      dest: /opt/sw_installers/{{ jdk_x64_rpm_installer }}
+      owner: root
+      group: root
+      mode: 0755
+    when: ansible_os_family == "RedHat"
+
+
+# ---- ---- ----
+
+
+# Install prerequisites
+
+  ## Running out of time, will leave the check on whether the RPM is already
+  #+ installed for later
+#  - name: check if JDK already installed - RedHat
+
+  - name: install JDK - RedHat
+    yum:
+      name: /opt/sw_installers/{{ jdk_x64_rpm_installer }}
+      state: present
+    when: ansible_os_family == "RedHat"
+
+  ## Running out of time, will leave the Debian installation as an exercise
+  #+ for later.
+#  - name: install JDK - Debian
+
+
+#  - name: install tools
+
+
+# ---- ---- ----
+
+
+# Set up some system variables and configuration files
+
+  - name: set up JAVA_HOME and PATH vars for root user
+    lineinfile:
+      path: /root/.bash_profile
+      line: "{{ item }}"
+      insertafter: EOF
+    with_items:
+    - '# Added by Ansible'
+    - 'export JAVA_HOME="/usr/java/jdk1.8.0_144"'
+    - 'export PATH="${JAVA_HOME}/bin:${PATH}"'
+
+
