@@ -61,6 +61,22 @@
   #+ for later.
 #  - name: install JDK - Debian
 
+  - name: configure Jenkins repository
+    yum_repository:
+      name: Jenkins
+      description: Jenkins-stable
+      reposdir: /etc/yum.repos.d
+      file: jenkins
+      baseurl: http://pkg.jenkins.io/redhat-stable
+      gpgkey: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+      gpgcheck: yes
+      enabled: yes
+      state: present
+
+  - name: install Jenkins RPM package from jenkins-stable
+    yum:
+      name: jenkins.noarch
+      state: latest
 
 #  - name: install tools
 
