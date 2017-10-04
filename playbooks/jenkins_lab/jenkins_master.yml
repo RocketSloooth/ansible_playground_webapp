@@ -78,7 +78,16 @@
       name: jenkins.noarch
       state: latest
 
-#  - name: install tools
+  - name: configure and start Jenkins service
+    systemd:
+      name: jenkins.service
+      enabled: yes
+      state: started
+
+  - name: install tools
+    yum:
+      name: git
+      state: latest
 
 
 # ---- ---- ----
