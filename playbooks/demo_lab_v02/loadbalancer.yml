@@ -1,0 +1,6 @@
+---
+# Hosts section
+- hosts: LoadBalancers
+
+  roles:
+  - nginx

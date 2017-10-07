@@ -1,0 +1,6 @@
+---
+- hosts: WebServers
+
+  roles:
+  - apache2
+  - demo_app

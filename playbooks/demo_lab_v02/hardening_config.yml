@@ -1,0 +1,32 @@
+---
+
+- hosts: all
+
+# Tasks section:
+  tasks:
+
+  - name: disable root ssh access
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      state: present
+      backup: yes
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+      insertafter: EOF
+    with_items:
+    - { regexp: '^PermitRootLogin', line: 'PermitRootLogin no' }
+    - { regexp: '^PubkeyAuthentication', line: 'PubkeyAuthentication yes' }
+    - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no' }
+    notify: reload sshd
+
+# Handlers section:
+  handlers:
+
+  - name: reload sshd
+    systemd:
+      name: sshd.service
+      state: reloaded
+
+
+
+
