@@ -30,14 +30,14 @@
 
   - name: copy demo app source
     copy:
-      src: ../demo/app/
+      src: ./files/demo/app/
       dest: /var/www/demo
       mode: 0755
     notify: restart apache2
 
   - name: copy apache virtualhost config
     copy:
-      src: ../demo/demo.conf
+      src: ./files/demo/demo.conf
       dest: /etc/apache2/sites-available
       mode: 0755
     notify: restart apache2
