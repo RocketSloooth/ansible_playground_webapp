@@ -30,15 +30,15 @@
     state: started
     enabled: yes
 
-- name: create demo database
+- name: create database
   mysql_db:
-    name: demo
+    name: "{{ db_name }}"
     state: present
 
-- name: create demo mysql user
+- name: create mysql user
   mysql_user:
-    name: demo
-    password: demo
-    priv: demo.*:ALL
-    host: '%'
+    name: "{{ db_user_name }}"
+    password: "{{ db_user_pass }}"
+    priv: "{{ db_name }}.*:ALL"
+    host: "{{ db_user_host }}"
     state: present
