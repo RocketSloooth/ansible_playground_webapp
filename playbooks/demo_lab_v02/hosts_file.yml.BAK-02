@@ -14,8 +14,8 @@
       state: present
       backup: yes
     with_items:
-    - { name: control, ip: 10.181.103.94 }
-    - { name: db01, ip: 10.181.198.135 }
-    - { name: app01, ip: 10.181.97.231 }
-    - { name: app02, ip: 10.181.98.248 }
-    - { name: lb01, ip: 10.181.99.64 }
+    - { name: control, ip: 134.213.31.79 }
+    - { name: db01, ip: 134.213.166.99 }
+    - { name: app01, ip: 162.13.141.222 }
+    - { name: app02, ip: 134.213.29.187 }
+    - { name: lb01, ip: 162.13.81.64 }
