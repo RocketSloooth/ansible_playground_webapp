@@ -14,7 +14,7 @@
   with_items:
   - python-mysqldb
 
-- name: ensure mysql listening on all IPs
+- name: ensure mysql listening on private IP only
   lineinfile:
     path: /etc/mysql/mysql.conf.d/mysqld.cnf
     regexp: ^bind-address
